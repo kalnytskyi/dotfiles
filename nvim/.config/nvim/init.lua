@@ -191,6 +191,8 @@ set_vim_plug(
       plug("nvim-lua/lsp_extensions.nvim")
       plug("onsails/lspkind-nvim")
       plug("ray-x/lsp_signature.nvim")
+      plug("simrat39/rust-tools.nvim")
+      plug("kosayoda/nvim-lightbulb")
 
       -- Tree-sitter is a parser generator tool and an incremental parsing
       -- library. NeoVim can leverage its functionality in various ways:
@@ -388,6 +390,10 @@ set_vim_plug(
             capabilities = capabilities,
          })
 
+         if pcall(require, "rust-tools") then
+            require("rust-tools").setup({tools = {autoSetHints = false, hover_with_actions = false}})
+         end
+
          lspconfig.rust_analyzer.setup({
             on_attach = function(client, bufnr)
                on_attach(client, bufnr)
@@ -462,6 +468,10 @@ set_vim_plug(
          })
       end,
 
+      ["kosayoda/nvim-lightbulb"] = function()
+         vim.cmd("autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()")
+         vim.fn.sign_define("LightBulbSign", {text = ""})
+      end,
 
       ["nvim-treesitter/nvim-treesitter"] = function()
          require("nvim-treesitter.configs").setup({

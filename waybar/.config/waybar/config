@@ -9,6 +9,7 @@
     "sway/window"
   ],
   "modules-right": [
+    "tray",
     "pulseaudio#audio",
     "pulseaudio#mic",
     "idle_inhibitor",
@@ -61,12 +62,16 @@
   "custom/vpn": {
     "format": "VPN ",
     "exec": "echo '{\"class\": \"connected\"}'",
-    "exec-if": "test -d /proc/sys/net/ipv4/conf/tun0",
+    "exec-if": "test -d /proc/sys/net/ipv4/conf/gpd0",
     "return-type": "json",
-    "interval": 5
+    "interval": 5,
+    "on-click": "globalprotect launch-ui"
   },
   "sway/language": {
     "format": "{} "
+  },
+  "tray": {
+    "spacing": 10
   },
   "battery": {
     "states": {
